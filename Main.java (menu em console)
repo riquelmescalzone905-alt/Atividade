@@ -1,0 +1,72 @@
+import model.Evento;
+import model.Usuario;
+import service.EventoService;
+import util.ArquivoUtil;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Cadastro de Usuário");
+        System.out.print("Nome: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Idade: ");
+        int idade = sc.nextInt();
+        sc.nextLine();
+
+        Usuario usuario = new Usuario(nome, email, idade);
+
+        List<Evento> eventos = ArquivoUtil.carregarEventos();
+        EventoService.ordenarPorHorario(eventos);
+
+        int opcao;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1 - Listar eventos");
+            System.out.println("2 - Confirmar participação");
+            System.out.println("3 - Ver meus eventos");
+            System.out.println("4 - Sair");
+
+            opcao = sc.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    for (int i = 0; i < eventos.size(); i++) {
+                        System.out.println("\n[" + i + "]");
+                        System.out.println(eventos.get(i));
+                        EventoService.mostrarStatus(eventos.get(i));
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Digite o número do evento: ");
+                    int escolha = sc.nextInt();
+                    usuario.confirmarEvento(eventos.get(escolha));
+                    System.out.println("Participação confirmada!");
+                    break;
+
+                case 3:
+                    System.out.println("Eventos confirmados:");
+                    usuario.getEventosConfirmados()
+                            .forEach(e -> System.out.println(e.getNome()));
+                    break;
+
+            }
+
+        } while (opcao != 4);
+
+        ArquivoUtil.salvarEventos(eventos);
+        System.out.println("Sistema encerrado.");
+    }
+}

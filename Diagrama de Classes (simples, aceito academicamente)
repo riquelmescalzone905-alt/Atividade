@@ -1,0 +1,19 @@
+Usuario
+- nome
+- email
+- idade
+- eventosConfirmados
++ confirmarEvento()
++ cancelarEvento()
+
+Evento
+- nome
+- endereco
+- categoria
+- horario
+- descricao
+
+Main -> Usuario
+Main -> Evento
+EventoService -> Evento
+ArquivoUtil -> Evento

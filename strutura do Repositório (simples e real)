@@ -1,0 +1,18 @@
+sistema-eventos-cidade/
+│
+├── README.md
+│
+├── events.data
+│
+└── src/
+    ├── Main.java
+    │
+    ├── model/
+    │   ├── Usuario.java
+    │   └── Evento.java
+    │
+    ├── service/
+    │   └── EventoService.java
+    │
+    └── util/
+        └── ArquivoUtil.java
